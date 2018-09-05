@@ -52,8 +52,13 @@ class ModelNews extends Db
 
     public function setCount($id = null)
     {
-        $sth = $this->connection->query("UPDATE news SET view_count = (view_count + 1) WHERE news_id = $id");
+        $this->connection->query("UPDATE news SET view_count = (view_count + 1) WHERE news_id = $id");
+    }
 
-//        return $sth->fetchAll(PDO::FETCH_ASSOC);
+    public function getCount($id = null)
+    {
+        $sth = $this->connection->query("SELECT * FROM comments WHERE news_id = $id");
+
+        return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
 }

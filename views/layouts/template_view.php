@@ -28,7 +28,7 @@
             <div class="table fullheight">
                 <div class="table-cell fullheight middle">
                     <div class="logo">
-                        <a href="index.html"><img alt="" src="\template\images\topbar\logo_white.png" height="17">
+                        <a href="/"><img alt="" src="\template\images\topbar\logo_white.png" height="17">
                         </a>
                     </div>
                 </div>

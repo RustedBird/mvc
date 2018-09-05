@@ -20,12 +20,4 @@ class ModelComments extends Db
         header("Location: http://mvc/news/post/$newsId", true, 301);
         exit();
     }
-
-    public function getComments($id)
-    {
-        $stm = $this->connection->query("SELECT * FROM comments WHERE news_id = $id");
-
-        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
-    }
 }

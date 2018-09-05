@@ -1,7 +1,6 @@
 <?php
 
 include_once ROOT . '/models/ModelNews.php';
-include_once ROOT . '/models/ModelComments.php';
 include_once ROOT . '/controllers/Controller.php';
 
 class NewsController extends Controller
@@ -11,7 +10,7 @@ class NewsController extends Controller
     {
         parent::__construct();
         $this->newsModel = new ModelNews();
-        $this->commentsModel = new ModelComments();
+//        $this->commentsModel = new ModelComments();
     }
 
     public function actionIndex($parameters = NULL)
@@ -37,9 +36,7 @@ class NewsController extends Controller
             $this->view->lastNews = $this->newsModel->getLastNews();
             $this->view->allCategories = $this->newsModel->getNewsByCategory();
             $this->view->selectedNews = $this->newsModel->getNewsById($parameters);
-
-            $this->view->comments = $this->commentsModel->getComments($parameters);
-//            var_dump($this->view->comments); die;
+            $this->view->comments = $this->newsModel->getCount($parameters);
 
             $this->view->generate('template_view.php', 'news/post.php');
         } catch (Exception $e) {
