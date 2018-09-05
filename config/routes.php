@@ -1,8 +1,10 @@
 <?php
 
 return [
-    'news/([a-zA-Z]+)/([0-9]+)' => 'news/detail/$2',
-    'news/([a-zA-Z]+)' => 'news/index/$1',
+    'news/post/([0-9]+)' => 'news/post/$1',
+    'news/comment' => 'comment/add',
     'news' => 'news/index',
-    '' => 'index/index',
+    'about' => 'about/index',
+    '[a-zA-Z]+' => 'index/index',
+    '' => 'index/index'
 ];
