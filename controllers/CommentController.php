@@ -21,9 +21,4 @@ class CommentController extends Controller
         }
         return true;
     }
-
-    public function actionDetail($parameters = NULL)
-    {
-        return 'actionDetails';
-    }
 }

@@ -15,7 +15,7 @@
                     <h1><a href="/news/post/<?= $item['news_id']?>"><?= $item['news_title']?></a></h1>
                     <!-- Meta -->
                     <div class="blog-meta">
-                        <div class="meta-item"><div class="meta-title published">Дата:</div><a href="/news/post/<?= $item['news_id']?>"><?= $item['news_date_text']?></a></div>
+                        <div class="meta-item"><div class="meta-title published">Дата:</div><a href="/news/post/<?= $item['news_id']?>"><?= date('d-m-Y', strtotime($item['news_date']))?></a></div>
                         <div class="meta-item"><div class="meta-title views">Просмотры:</div><a href="/news/post/<?= $item['news_id']?>"><?= $item['view_count']?></a></div>
                     </div>
                     <!-- Image -->
@@ -55,8 +55,8 @@
                 <!-- Title -->
                 <h3>Категории новостей</h3>
                 <!-- Category Links -->
-                <? foreach ($this->allCategories as $item):?>
-                    <a href="#"><?= $item['news_category']?></a>
+                <? foreach ($this->categories as $item): ?>
+                    <a href="/news/<?= $item['cat_code']?>"><?= $item['cat_name']?></a>
                 <? endforeach;?>
             </div>
 
@@ -68,11 +68,11 @@
                 <!-- Title -->
                 <h3>Новость дня</h3>
                 <!-- Image -->
-                <a href="#" class="image-link"><img alt="" src="<?= $this->topNews[0]['news_img']?>" class="fullwidth"></a>
+                <a href="#" class="image-link"><img alt="" src="<?= $this->topNews['news_img']?>" class="fullwidth"></a>
                 <!-- Project Title -->
-                <h3 class="sub-title"><a href="#"><?= $this->topNews[0]['news_title']?></a></h3>
+                <h3 class="sub-title"><a href="#"><?= $this->topNews['news_title']?></a></h3>
                 <!-- Tags -->
-                <div class="tags"><?= $this->topNews[0]['news_category']?></div>
+                <div class="tags"><?= $this->topNews['cat_name']?></div>
             </div>
 
             <!-- END Latest Project -->
@@ -96,7 +96,7 @@
                             <!-- Post Title -->
                             <h3 class="sub-title"><a href="blog-post.html"><?= $item['news_title']?></a></h3>
                             <!-- Date -->
-                            <div class="date"><?= $item['news_date_text']?></div>
+                            <div class="date"><?= date('d-m-Y', strtotime($item['news_date']))?></div>
                         </div>
                     </div>
                 <? endforeach;?>

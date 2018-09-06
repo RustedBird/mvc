@@ -46,22 +46,20 @@
             </ul>
 
             <ul class="topnav">
-                <li><a href="/" class="current">Главная</a>
+                <li><a href="/" class="<? if ($_SERVER['REQUEST_URI'] == '/'): ?>current<? endif;?>">Главная</a>
                 </li>
-                <li><a href="about">О компании</a>
+                <li><a href="/about" class="<? if ($_SERVER['REQUEST_URI'] == '/about'): ?>current<? endif;?>">О компании</a>
                 </li>
                 <li><a href="portfolio.html" class="drop">Проекты</a>
                     <ul>
                         <li><a href="#">Название проекта №1</a></li>
                         <li><a href="#">Название проекта №2</a></li>
                         <li><a href="#">Название проекта №3</a></li>
-                        <li><a href="#">Название проекта №4</a></li>
-                        <li><a href="#">Название проекта №5</a></li>
                     </ul>
                 </li>
-                <li><a href="/news" class="drop">Новости</a>
+                <li><a href="/news" class="drop <? if ($_SERVER['REQUEST_URI'] == '/news'): ?>current<? endif;?>">Новости</a>
                     <ul>
-                        <li><a href="blog.html">Категории</a>
+                        <li><a href="/news">Категории</a>
                         </li>
                         <li><a href="blog-post.html">Описание новости</a>
                         </li>

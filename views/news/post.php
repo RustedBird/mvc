@@ -1,3 +1,7 @@
+
+<?/*
+var_dump($this->selectedNews); die;
+*/?>
 <div class="main-content-inner content-width">
 
     <!-- Main Column / Sidebar -->
@@ -12,12 +16,12 @@
 
             <div class="blog-post actual-post">
                 <!-- Title -->
-                <h1><?= $this->selectedNews[0]['news_title']?></h1>
+                <h1><?= $this->selectedNews['news_title']?></h1>
 
                 <!-- Meta -->
                 <div class="blog-meta">
-                    <div class="meta-item"><div class="meta-title published">Дата:</div><a href="#"><?= $this->selectedNews[0]['news_date_text']?></a></div>
-                    <div class="meta-item"><div class="meta-title views">Просмотры:</div><a href="#"><?= $this->selectedNews[0]['view_count']?></a></div>
+                    <div class="meta-item"><div class="meta-title published">Дата:</div><a href="#"><?= date('d-m-Y', strtotime($this->selectedNews['news_date']))?></a></div>
+                    <div class="meta-item"><div class="meta-title views">Просмотры:</div><a href="#"><?= $this->selectedNews['view_count']?></a></div>
                     <div class="meta-item"><div class="meta-title comments">Комментарии:</div><a href="#"><?= count($this->comments)?></a></div>
                 </div>
 
@@ -25,7 +29,7 @@
 
                 <div class="blog-content">
                     <!-- Paragraph -->
-                    <p><?= $this->selectedNews[0]['news_short_content']?></p>
+                    <p><?= $this->selectedNews['news_short_content']?></p>
 
                     <div class="media">
                         <div id="portfolio-blog-slider-container">
@@ -34,8 +38,8 @@
 
                                 <!-- Actual Images -->
 
-                                <img alt="" src="<?= $this->selectedNews[0]['news_img']?>" class="fullwidth">
-                                <img alt="" src="<?= $this->selectedNews[0]['news_img']?>" class="fullwidth">
+                                <img alt="" src="<?= $this->selectedNews['news_img']?>" class="fullwidth">
+                                <img alt="" src="<?= $this->selectedNews['news_img']?>" class="fullwidth">
 
                                 <!-- END Actual Images -->
 
@@ -57,7 +61,7 @@
                     <!-- END Image -->
 
                     <!-- Paragraph -->
-                    <p><?= $this->selectedNews[0]['news_content']?></p>
+                    <p><?= $this->selectedNews['news_content']?></p>
                 </div>
 
                 <!-- END Content -->
@@ -104,7 +108,7 @@
                         </div>
                         <!-- Date -->
                         <div class="date">
-                            31 августа 2016
+                            <?= date('d-m-Y', strtotime($item['comment_date']))?>
                         </div>
                         <!-- Message -->
                         <div class="message">
@@ -120,15 +124,11 @@
 
             <!-- END Reader Comments -->
 
-
-
             <!-- Divider -->
 
             <div class="divider"></div>
 
             <!-- END Divider -->
-
-
 
             <!-- Post Comment Form -->
             <div class="comment-form">
@@ -140,7 +140,7 @@
                     <input type="text" name="mail" placeholder="Email *" required>
                     <!-- Textbox -->
                     <input type="text" name="theme" placeholder="Тема *" required>
-                    <input type="hidden" name="news_id" value="<?= $this->selectedNews[0]['news_id']?>">
+                    <input type="hidden" name="news_id" value="<?= $this->selectedNews['news_id']?>">
                     <!-- Comment box -->
                     <textarea name="message" placeholder="Сообщение *"></textarea>
                     <!-- Submit Button -->
@@ -168,8 +168,8 @@
                 <!-- Title -->
                 <h3>Категории новостей</h3>
                 <!-- Category Links -->
-                <? foreach ($this->allCategories as $item):?>
-                    <a href="#"><?= $item['news_category']?></a>
+                <? foreach ($this->categories as $item): ?>
+                    <a href="/news/<?= $item['cat_code']?>"><?= $item['cat_name']?></a>
                 <? endforeach;?>
             </div>
 
@@ -181,11 +181,11 @@
                 <!-- Title -->
                 <h3>Новость дня</h3>
                 <!-- Image -->
-                <a href="#" class="image-link"><img alt="" src="<?= $this->topNews[0]['news_img']?>" class="fullwidth"></a>
+                <a href="#" class="image-link"><img alt="" src="<?= $this->topNews['news_img']?>" class="fullwidth"></a>
                 <!-- Project Title -->
-                <h3 class="sub-title"><a href="#"><?= $this->topNews[0]['news_title']?></a></h3>
+                <h3 class="sub-title"><a href="#"><?= $this->topNews['news_title']?></a></h3>
                 <!-- Tags -->
-                <div class="tags"><?= $this->topNews[0]['news_category']?></div>
+                <div class="tags"><?= $this->topNews['cat_name']?></div>
             </div>
 
             <!-- END Latest Project -->
@@ -209,7 +209,7 @@
                             <!-- Post Title -->
                             <h3 class="sub-title"><a href="blog-post.html"><?= $item['news_title']?></a></h3>
                             <!-- Date -->
-                            <div class="date"><?= $item['news_date_text']?></div>
+                            <div class="date"><?= date('d-m-Y', strtotime($item['news_date']))?></div>
                         </div>
                     </div>
                 <? endforeach;?>

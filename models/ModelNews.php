@@ -1,5 +1,4 @@
 <?php
-
 class ModelNews extends Db
 {
     public function __construct()
@@ -7,46 +6,42 @@ class ModelNews extends Db
         parent::__construct();
     }
 
-    public function getAllNews ()
+    public function getAllNews ($category)
     {
-        $stm = $this->connection->query("SELECT * FROM news");
+        if ($category === NULL)
+        {
+            $stm = $this->connection->query("SELECT * FROM news");
+        } else
+        {
+        $stm = $this->connection->query("SELECT * FROM news WHERE news.news_category = (SELECT  category.cat_id FROM category WHERE category.cat_code = '$category')");
+        }
 
-        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getNewsByCategory ()
+    public function getDate($date)
     {
-        $stm = $this->connection->query("SELECT * FROM news GROUP BY news_category");
+        var_dump($date); die;
+    }
 
-        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+    public function getTopNews()
+    {
+        $sth = $this->connection->prepare("SELECT * FROM news INNER JOIN category ON news.news_id = category.cat_id ORDER BY news.news_date DESC LIMIT 1");
+        $sth->execute();
+        return $sth->fetch(PDO::FETCH_ASSOC);
     }
 
     public function getNewsById ($id = null)
     {
         $stm = $this->connection->query("SELECT * FROM news WHERE news_id = $id");
-
-        $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-
+        $result = $stm->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
-
     public function getLastNews($count = 3)
     {
         $sth = $this->connection->prepare("SELECT * FROM news ORDER BY news_date DESC LIMIT :count");
         $sth->bindParam(':count', $count, PDO::PARAM_INT);
         $sth->execute();
-
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function getTopNews($count = 4)
-    {
-        $sth = $this->connection->prepare("SELECT * FROM news ORDER BY news_category LIMIT :count");
-        $sth->bindParam(':count', $count, PDO::PARAM_INT);
-        $sth->execute();
-
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -54,11 +49,9 @@ class ModelNews extends Db
     {
         $this->connection->query("UPDATE news SET view_count = (view_count + 1) WHERE news_id = $id");
     }
-
-    public function getCount($id = null)
+    public function getComentary($id = null)
     {
         $sth = $this->connection->query("SELECT * FROM comments WHERE news_id = $id");
-
         return $sth->fetchAll(PDO::FETCH_ASSOC);
     }
 }
