@@ -7,6 +7,7 @@ include_once ROOT . '/controllers/Controller.php';
 class NewsController extends Controller
 {
     private $newsModel;
+
     public function __construct()
     {
         parent::__construct();
@@ -16,6 +17,7 @@ class NewsController extends Controller
 
     public function actionIndex($parameters = NULL)
     {
+
         try {
             $this->view->allNews = $this->newsModel->getAllNews($parameters);
             $this->view->topNews = $this->newsModel->getTopNews();
@@ -46,8 +48,16 @@ class NewsController extends Controller
         return true;
     }
 
-    public function actionDetail($parameters = NULL)
+    public function actionSearch($parameters = NULL)
     {
-        return 'actionDetails';
+        try {
+            $this->view->searchResult = $this->newsModel->searchNews($parameters);
+            $this->view->categories = $this->categoryModel->getCategoryList();
+
+            $this->view->generate('template_view.php', 'news/search.php');
+        } catch (Exception $e) {
+            echo 'Caught exception: ', $e->getMessage(), "\n";
+        }
+        return true;
     }
 }

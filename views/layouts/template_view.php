@@ -65,7 +65,7 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="contact.html">Контакты</a>
+                <li><a href="/contacts" class="<? if ($_SERVER['REQUEST_URI'] == '/contacts'): ?>current<? endif;?>">Контакты</a>
                 </li>
             </ul>
 

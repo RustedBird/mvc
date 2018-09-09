@@ -64,8 +64,7 @@
     <div class="carousel">
         <ul id="portfolio-carousel" class="slider-container">
 
-            <? foreach ($this->topNews as $item):?>
-
+            <? foreach ($this->lastNews as $item):?>
 
                 <!-- One Fourth -->
 
@@ -76,7 +75,7 @@
                     <!-- Title -->
                     <h3><a href="/news/post/<?= $item['news_id']?>"><?= $item['news_title']?></a></h3>
                     <!-- Tags -->
-                    <div class="tags"><?= $item['news_category']?></div>
+                    <div class="tags">Категория <?= $item['news_category']?></div>
                 </li>
 
             <? endforeach;?>
@@ -94,7 +93,7 @@
             <div class="carousel">
                 <ul id="blog-carousel" class="slider-container">
 
-                    <? foreach ($this->lastNews as $item): ?>
+                    <? foreach ($this->allNews as $item): ?>
 
                         <li class="column-one-fourth">
                             <!-- Image -->
@@ -103,11 +102,11 @@
                             <!-- Title -->
                             <h3><a href="/news/post/<?= $item['news_id']?>"><?= $item['news_title']?></a></h3>
                             <!-- Date -->
-                            <div class="date"><?= $item['news_date_text']?></div>
+                            <div class="date"><?= date('d-m-Y', strtotime($item['news_date']))?></div>
                             <!-- Excerpt -->
                             <p><?= $item['news_short_content']?></p>
                             <!-- Read More Link -->
-                            <a href="blog-post.html">Подробнее</a>
+                            <a href="/news/post/<?= $item['news_id']?>">Подробнее</a>
                         </li>
 
                     <? endforeach;?>
@@ -132,45 +131,24 @@
                 <ul id="testimonials-carousel" class="slider-container">
 
 
-                    <!-- Testimonial 1 -->
+                    <? foreach ($this->comments as $comment): ?>
 
-                    <li class="column-one-fourth">
-                        <!-- Text -->
-                        <div class="testimonial-text">
-                            <p>Тактика выстраивания отношений с коммерсчекими агентами стремительно развивает стратегический нестандартный подход.</p>
-                        </div>
-                        <!-- Name -->
-                        <div class="testimonial-name">
-                            Джон Доу
-                        </div>
-                        <!-- Company URL -->
-                        <div class="testimonial-link">
-                            <a href="#">Посетитель</a>
-                        </div>
-                    </li>
+                        <li class="column-one-fourth">
+                            <!-- Text -->
+                            <div class="testimonial-text">
+                                <p><?= $comment['message']?></p>
+                            </div>
+                            <!-- Name -->
+                            <div class="testimonial-name">
+                                <?= $comment['name']?>
+                            </div>
+                            <!-- Company URL -->
+                            <div class="testimonial-link">
+                                <a href="/news/post/<?= $comment['news_id']?>">Посетитель</a>
+                            </div>
+                        </li>
 
-                    <!-- END Testimonial 1 -->
-
-
-
-                    <!-- Testimonial 2 -->
-
-                    <li class="column-one-fourth">
-                        <!-- Text -->
-                        <div class="testimonial-text">
-                            <p>Тактика выстраивания отношений с коммерсчекими агентами стремительно развивает стратегический нестандартный подход.</p>
-                        </div>
-                        <!-- Name -->
-                        <div class="testimonial-name">
-                            Джон Доу
-                        </div>
-                        <!-- Company URL -->
-                        <div class="testimonial-link">
-                            <a href="#">Посетитель</a>
-                        </div>
-                    </li>
-
-                    <!-- END Testimonial 2 -->
+                    <? endforeach;?>
 
 
                 </ul>
@@ -179,5 +157,6 @@
         </div>
 
     </div>
+
 
 </div>

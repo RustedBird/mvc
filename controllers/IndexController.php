@@ -15,7 +15,8 @@ class IndexController extends Controller
     {
         try {
             $this->view->lastNews = $this->newsModel->getLastNews();
-            $this->view->topNews = $this->newsModel->getTopNews();
+            $this->view->allNews = $this->newsModel->getAllNews();
+            $this->view->comments = $this->newsModel->getComentary($parameters);
 
             $this->view->generate('template_view.php', 'index/index.php');
         } catch (Exception $e) {

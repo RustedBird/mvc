@@ -6,11 +6,13 @@ class ModelNews extends Db
         parent::__construct();
     }
 
-    public function getAllNews ($category)
+    public function getAllNews ($category = NULL)
     {
         if ($category === NULL)
         {
-            $stm = $this->connection->query("SELECT * FROM news");
+            $stm = $this->connection->query("SELECT * FROM news ORDER BY news_id DESC");
+            $stm->execute();
+            return $stm->fetchAll(PDO::FETCH_ASSOC);
         } else
         {
         $stm = $this->connection->query("SELECT * FROM news WHERE news.news_category = (SELECT  category.cat_id FROM category WHERE category.cat_code = '$category')");
@@ -49,9 +51,38 @@ class ModelNews extends Db
     {
         $this->connection->query("UPDATE news SET view_count = (view_count + 1) WHERE news_id = $id");
     }
+
     public function getComentary($id = null)
     {
-        $sth = $this->connection->query("SELECT * FROM comments WHERE news_id = $id");
-        return $sth->fetchAll(PDO::FETCH_ASSOC);
+        if ($id === NULL)
+        {
+            $sth = $this->connection->query("SELECT * FROM comments ORDER BY comment_id");
+            return $sth->fetchAll(PDO::FETCH_ASSOC);
+        } else
+        {
+            $sth = $this->connection->query("SELECT * FROM comments WHERE news_id = $id");
+            return $sth->fetchAll(PDO::FETCH_ASSOC);
+        }
+    }
+
+    public function searchNews()
+    {
+        if ($_GET['blog-search'] !== '')
+        {
+            $searchRequest = $_GET['blog-search'];
+            $stm = $this->connection->query("SELECT * FROM news INNER JOIN category
+                                                  ON news.news_category = category.cat_id 
+                                                  WHERE news.news_title LIKE '%$searchRequest%'
+                                                  OR news.news_short_content LIKE '%$searchRequest%'
+                                                  OR news.news_content LIKE '%$searchRequest%'
+                                                  OR category.cat_name LIKE '%$searchRequest%'");
+            $newsArray = $stm->fetchAll(PDO::FETCH_ASSOC);
+
+            return $newsArray;
+        } else
+        {
+            return [];
+        }
+
     }
 }
